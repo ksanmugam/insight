@@ -38,7 +38,7 @@ namespace BigPurpleBank.Services
                         MaskedNumber = "****1234",
                     }
                 },
-                Links = new LinksPaginated(),
+                Links = new LinksPaginated { Self = String.Empty },
                 Meta = new MetaPaginated
                 {
                     TotalPages = 1,

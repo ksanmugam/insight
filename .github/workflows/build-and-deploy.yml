@@ -10,7 +10,7 @@ on:
       - master
       
 env:
-  AZURE_WEBAPP_NAME: insight
+  AZURE_WEBAPP_NAME: bigpurplebank
   AZURE_WEBAPP_PACKAGE_PATH: "./publish"
   DOTNET_VERSION: "8.x"
   SOLUTION_PATH: "BigPurpleBank.sln"

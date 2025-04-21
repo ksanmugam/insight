@@ -1,6 +1,7 @@
 ﻿using BigPurpleBank.Controllers.v2;
 using BigPurpleBank.Enum;
 using BigPurpleBank.Interfaces;
+using BigPurpleBank.Models;
 using BigPurpleBank.Models.v2;
 using BigPurpleBank.Models.v2.Banking;
 using Microsoft.AspNetCore.Mvc;
@@ -27,14 +28,19 @@ namespace BigPurpleBank.Tests
         [Fact]
         public async Task GetAccounts_WithValidParams_ReturnsOk()
         {
-            // Arrange
-            var fakeAccounts = new ResponseBankingAccountListV2(); // Populate with mock data if needed
+            // Arrange  
+            var fakeAccounts = new ResponseBankingAccountListV2
+            {
+                Data = new List<BankingAccountV2>(),
+                Links = new LinksPaginated{ Self = String.Empty },
+                Meta = new MetaPaginated()
+            };
             _mockBankingService.Setup(s => s.GetAccountsAsync()).ReturnsAsync(fakeAccounts);
 
-            // Act
+            // Act  
             var result = await _controller.GetAccounts(null, OpenStatus.ALL, true, 1, 25);
 
-            // Assert
+            // Assert  
             var okResult = Assert.IsType<OkObjectResult>(result);
             Assert.Equal(fakeAccounts, okResult.Value);
         }

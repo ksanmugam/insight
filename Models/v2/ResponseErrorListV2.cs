@@ -2,6 +2,6 @@
 {
     public class ResponseErrorListV2
     {
-        public ICollection<ErrorV2> Errors { get; set; }
+        public ICollection<ErrorV2> Errors { get; set; } = new List<ErrorV2>();
     }
 }

@@ -9,10 +9,10 @@ namespace BigPurpleBank.Services
 {
     public class BankingService : IBankingService
     {
-        private readonly DatabaseContext _context;
-        public BankingService(DatabaseContext context)
+        //private readonly DatabaseContext _context;
+        public BankingService()
         {
-            _context = context;
+            //_context = context;
         }
 
         public async Task<ResponseBankingAccountListV2> GetAccountsAsync()

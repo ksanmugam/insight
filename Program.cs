@@ -9,8 +9,8 @@ using System;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<DatabaseContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+//builder.Services.AddDbContext<DatabaseContext>(options =>
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
 builder.Services.AddCors(options =>
@@ -42,25 +42,17 @@ builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
 var app = builder.Build();
 
-using (var serviceScope = app.Services.CreateScope())
-{
-    try
-    {
-        var DbContext = serviceScope.ServiceProvider.GetRequiredService<DatabaseContext>();
-        await DbContext.Database.MigrateAsync();
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"Database migration failed: {ex.Message}");
-        Console.WriteLine(ex.StackTrace);
-    }
-}
+//using (var serviceScope = app.Services.CreateScope())
+//{
+//    var DbContext = serviceScope.ServiceProvider.GetRequiredService<DatabaseContext>();
+//    await DbContext.Database.MigrateAsync();
+//}
 
 
 // Configure the HTTP request pipeline.
 //if (app.Environment.IsDevelopment())
 //{
-app.UseSwagger();
+    app.UseSwagger();
     app.UseSwaggerUI();
 //}
 

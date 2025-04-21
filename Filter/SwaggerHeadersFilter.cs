@@ -9,14 +9,14 @@ namespace BigPurpleBank.Filter
         {
             operation.Parameters ??= new List<OpenApiParameter>();
 
-            //operation.Parameters.Add(new OpenApiParameter
-            //{
-            //    Name = "x-v",
-            //    In = ParameterLocation.Header,
-            //    Required = true,
-            //    Schema = new OpenApiSchema { Type = "integer" },
-            //    Description = "Mandatory version header"
-            //});
+            operation.Parameters.Add(new OpenApiParameter
+            {
+                Name = "x-v",
+                In = ParameterLocation.Header,
+                Required = true,
+                Schema = new OpenApiSchema { Type = "integer" },
+                Description = "Version of the API endpoint requested by the client. Must be set to a positive integer. The endpoint should respond with the highest supported version between x-min-v and x-v. If the value of x-min-v is equal to or higher than the value of x-v then the x-min-v header should be treated as absent. If all versions requested are not supported then the endpoint MUST respond with a 406 Not Acceptable."
+            });
 
             operation.Parameters.Add(new OpenApiParameter
             {
@@ -24,7 +24,7 @@ namespace BigPurpleBank.Filter
                 In = ParameterLocation.Header,
                 Required = false,
                 Schema = new OpenApiSchema { Type = "integer" },
-                Description = "Optional minimum version"
+                Description = "Minimum version of the API endpoint requested by the client. Must be set to a positive integer if provided. The endpoint should respond with the highest supported version between x-min-v and x-v. If all versions requested are not supported then the endpoint MUST respond with a 406 Not Acceptable."
             });
 
             operation.Parameters.Add(new OpenApiParameter
@@ -33,7 +33,7 @@ namespace BigPurpleBank.Filter
                 In = ParameterLocation.Header,
                 Required = false,
                 Schema = new OpenApiSchema { Type = "string", Format = "uuid" },
-                Description = "Optional UUID for interaction tracking"
+                Description = "An [RFC4122] UUID used as a correlation id. If provided, the data holder MUST play back this value in the x-fapi-interaction-id response header. If not provided a [RFC4122] UUID value is required to be provided in the response header to track the interaction."
             });
 
             operation.Parameters.Add(new OpenApiParameter
@@ -42,7 +42,16 @@ namespace BigPurpleBank.Filter
                 In = ParameterLocation.Header,
                 Required = false,
                 Schema = new OpenApiSchema { Type = "string" },
-                Description = "Auth date for customer-present calls"
+                Description = "The time when the customer last logged in to the Data Recipient Software Product as described in [FAPI-1.0-Baseline]. Required for all resource calls (customer present and unattended). Not required for unauthenticated calls."
+            });
+
+            operation.Parameters.Add(new OpenApiParameter
+            {
+                Name = "x-fapi-customer-ip-address",
+                In = ParameterLocation.Header,
+                Required = false,
+                Schema = new OpenApiSchema { Type = "string" },
+                Description = "The customer's original IP address if the customer is currently logged in to the Data Recipient Software Product. The presence of this header indicates that the API is being called in a customer present context. Not to be included for unauthenticated calls."
             });
 
             operation.Parameters.Add(new OpenApiParameter
@@ -51,7 +60,7 @@ namespace BigPurpleBank.Filter
                 In = ParameterLocation.Header,
                 Required = false,
                 Schema = new OpenApiSchema { Type = "string" },
-                Description = "Base64 encoded client metadata"
+                Description = "The customer's original standard http headers Base64 encoded, including the original User-Agent header, if the customer is currently logged in to the Data Recipient Software Product. Mandatory for customer present calls. Not required for unattended or unauthenticated calls."
             });
         }
     }

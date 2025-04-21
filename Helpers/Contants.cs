@@ -3,6 +3,8 @@
     public class Contants
     {
         public const int MaxPageSize = 100;
+        public const int MinSupportedVersion = 1;
+        public const int MaxSupportedVersion = 5;
         public static class ErrorCodes
         {
 

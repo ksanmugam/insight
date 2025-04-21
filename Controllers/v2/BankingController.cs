@@ -99,7 +99,7 @@ namespace BigPurpleBank.Controllers.v2
             }
             catch (Exception ex)
             {
-                _logger.LogError("An error occurred while processing the request.");
+                _logger.LogError(ex, "An error occurred while processing the request.");
                 return StatusCode(500, new ResponseErrorListV2
                 {
                     Errors = new List<ErrorV2>

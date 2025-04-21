@@ -38,6 +38,8 @@ builder.Services.AddSwaggerGen(c =>
     c.OperationFilter<SwaggerHeadersFilter>();
 });
 
+builder.Services.AddRouting(options => options.LowercaseUrls = true);
+
 var app = builder.Build();
 
 using (var serviceScope = app.Services.CreateScope())

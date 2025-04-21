@@ -9,14 +9,14 @@ namespace BigPurpleBank.Filter
         {
             operation.Parameters ??= new List<OpenApiParameter>();
 
-            operation.Parameters.Add(new OpenApiParameter
-            {
-                Name = "x-v",
-                In = ParameterLocation.Header,
-                Required = true,
-                Schema = new OpenApiSchema { Type = "integer" },
-                Description = "Mandatory version header"
-            });
+            //operation.Parameters.Add(new OpenApiParameter
+            //{
+            //    Name = "x-v",
+            //    In = ParameterLocation.Header,
+            //    Required = true,
+            //    Schema = new OpenApiSchema { Type = "integer" },
+            //    Description = "Mandatory version header"
+            //});
 
             operation.Parameters.Add(new OpenApiParameter
             {

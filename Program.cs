@@ -44,15 +44,23 @@ var app = builder.Build();
 
 using (var serviceScope = app.Services.CreateScope())
 {
-    var DbContext = serviceScope.ServiceProvider.GetRequiredService<DatabaseContext>();
-    await DbContext.Database.MigrateAsync();
+    try
+    {
+        var DbContext = serviceScope.ServiceProvider.GetRequiredService<DatabaseContext>();
+        await DbContext.Database.MigrateAsync();
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Database migration failed: {ex.Message}");
+        Console.WriteLine(ex.StackTrace);
+    }
 }
 
 
 // Configure the HTTP request pipeline.
 //if (app.Environment.IsDevelopment())
 //{
-    app.UseSwagger();
+app.UseSwagger();
     app.UseSwaggerUI();
 //}
 

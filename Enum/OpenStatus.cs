@@ -1,0 +1,12 @@
+﻿using System.Text.Json.Serialization;
+
+namespace BigPurpleBank.Enum
+{
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public enum OpenStatus
+    {
+        ALL,
+        CLOSED,
+        OPEN
+    }
+}
